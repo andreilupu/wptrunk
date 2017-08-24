@@ -47,4 +47,11 @@ ADD wp-cli.yml /tmp/wp-cli.yml
 ADD wp-tests-config.php /tmp/wp-tests-config.php
 ADD wp-tests-config.php /tmp/wordpress-tests-lib/wp-tests-config.php
 
+# Add php code sniffer
+ADD wpcs/ /tmp/wpcs/
+ADD phpcs/ /tmp/phpcs/
+RUN /tmp/phpcs/bin/phpcs --config-set installed_paths /tmp/wpcs/
+
+#RUN /tmp/phpcs/bin/phpcs  -p /tmp/src/index.php --standard=WordPress;
+
 EXPOSE 9000
