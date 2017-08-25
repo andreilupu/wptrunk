@@ -1,3 +1,8 @@
+FROM jakzal/phpqa:alpine
+
+RUN apk add --no-cache libxml2-dev \
+ && docker-php-ext-install soap
+
 FROM wordpress:cli-php7.1
 
 WORKDIR /tmp/wordpress/
