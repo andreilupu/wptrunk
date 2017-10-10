@@ -3745,10 +3745,25 @@ final class WP_Customize_Manager {
 
 		/* Themes */
 
-		$this->add_section( new WP_Customize_Themes_Section( $this, 'themes', array(
-			'title'      => $this->theme()->display( 'Name' ),
-			'capability' => 'switch_themes',
-			'priority'   => 0,
+		// Note the controls for this section are added via JS.
+		$this->add_section( 'publish_settings', array(
+			'title' => __( 'Publish Settings' ),
+			'priority' => 0,
+			'capability' => 'customize',
+			'type' => 'outer',
+			'active_callback' => array( $this, 'is_theme_active' ),
+		) );
+
+		/* Themes (controls are loaded via ajax) */
+
+		$this->add_panel( new WP_Customize_Themes_Panel( $this, 'themes', array(
+			'title'       => $this->theme()->display( 'Name' ),
+			'description' => (
+				'<p>' . __( 'Looking for a theme? You can search or browse the WordPress.org theme directory, install and preview themes, then activate them right here.' ) . '</p>' .
+				'<p>' . __( 'While previewing a new theme, you can continue to tailor things like widgets and menus, and explore theme-specific options.' ) . '</p>'
+			),
+			'capability'  => 'switch_themes',
+			'priority'    => 0,
 		) ) );
 
 		// Themes Setting (unused - the theme is considerably more fundamental to the Customizer experience).
